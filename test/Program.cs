@@ -1,29 +1,67 @@
-﻿// Задайте значение N. Напишите программу, которая выведет все натуральные числа в промежутке от N до 1.
+﻿// Написать программу, которая из имеющегося массива строк формирует массив из строк, длина которых меньше или равна 3 символам. 
+//Первоначальный массив ввести с клавиатуры или задать на старте.  
 
-Console.Clear();
-Console.WriteLine("This program generates numbers from N to 1.");
+Console.WriteLine("This program create new string array where lenght of all string <= 3.");
 Console.WriteLine();
-int endValue=1;
-int numberN = EnterUserData("Enter the end number N:");
-if (numberN < endValue)
-{
-    numberN = endValue;
-}
-Console.Write(SumFunction(endValue, numberN));
+int lenghtArray = EnterUserData("Enter lenght of your array: ");
 Console.WriteLine();
-
-int SumFunction(int endValue, int numberN)
+Console.WriteLine("Enter your string array below.");
+Console.WriteLine();
+string[] inputArray = new string[lenghtArray];
+FillArray(inputArray);
+Console.WriteLine("Yours input array is:");
+PrintArray(inputArray);
+int resultArrayLenght = FilterArray(inputArray);
+string[] resultArray = new string[resultArrayLenght];
+int counter = 0;
+for (int i = 0; i < inputArray.Length; i++)
 {
-    if (endValue == numberN)
+    if (inputArray[i] != string.Empty)
     {
-        return endValue;
+        resultArray[counter] = inputArray[i];
+        counter++;
     }
-    Console.Write(SumFunction(endValue + 1,numberN) + ", ");
-    return endValue;
+}
+Console.WriteLine();
+Console.WriteLine("Yours array after filtration with basis = 3:");
+PrintArray(resultArray);
+
+int FilterArray(string[] array)
+{
+    int basis = 3;
+    int counter = array.Length;
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i].Length > basis)
+        {
+            array[i] = string.Empty;
+            counter--;
+        }
+    }
+    return counter; 
+}
+
+void FillArray(string[] array)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write($"Enter array element # {i + 1}: ");
+        array[i] = Console.ReadLine();
+        Console.WriteLine();
+    }
 }
 
 int EnterUserData(string nameUserData)
 {
     Console.Write($"{nameUserData}");
     return Convert.ToInt32(Console.ReadLine());
+}
+
+void PrintArray(string[] array)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i] + " ");
+    }
+    Console.WriteLine();
 }
